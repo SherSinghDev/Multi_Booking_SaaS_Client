@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import api from '@/lib/api';
 import toast from 'react-hot-toast';
-import { HiMagnifyingGlass, HiFunnel, HiClock, HiCalendarDays, HiUser, HiAdjustmentsHorizontal } from 'react-icons/hi2';
+import { HiMagnifyingGlass, HiFunnel, HiClock, HiCalendarDays, HiUser, HiAdjustmentsHorizontal, HiEye, HiCheckBadge, HiXMark } from 'react-icons/hi2';
 
 interface Booking {
   _id: string;
@@ -20,6 +20,8 @@ interface Booking {
     type: string;
   };
   createdAt: string;
+  paymentReceipt?: string;
+  paymentStatus?: 'pending' | 'verified' | 'rejected';
 }
 
 export default function BookingsPage() {
@@ -29,6 +31,7 @@ export default function BookingsPage() {
   const [dateFilter, setDateFilter] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
   const [businessId, setBusinessId] = useState<string | null>(null);
+  const [selectedBooking, setSelectedBooking] = useState<Booking | null>(null);
 
   useEffect(() => {
     const id = localStorage.getItem('bookify_active_business');
@@ -62,6 +65,17 @@ export default function BookingsPage() {
       fetchBookings();
     } catch {
       toast.error('Failed to update status');
+    }
+  };
+
+  const updatePaymentStatus = async (bookingId: string, pStatus: string) => {
+    try {
+      await api.put(`/bookings/${bookingId}/status`, { paymentStatus: pStatus });
+      toast.success(`Payment ${pStatus}`);
+      setSelectedBooking(null);
+      fetchBookings();
+    } catch {
+      toast.error('Verification failed');
     }
   };
 
@@ -180,6 +194,7 @@ export default function BookingsPage() {
                   <th>Customer Identification</th>
                   <th>Service Module</th>
                   <th>Execution Window</th>
+                  <th>Settlement</th>
                   <th>Status</th>
                   <th>Operations</th>
                 </tr>
@@ -214,6 +229,28 @@ export default function BookingsPage() {
                           {booking.timeSlot}
                         </div>
                       </div>
+                    </td>
+                    <td>
+                      {booking.paymentReceipt ? (
+                        <div className="flex flex-col gap-2">
+                          <button 
+                            onClick={() => setSelectedBooking(booking)}
+                            className="inline-flex items-center gap-2 px-3 py-1.5 bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 rounded-lg text-[10px] font-black uppercase tracking-widest hover:bg-indigo-500 hover:text-white transition-all group"
+                          >
+                            <HiEye className="w-3.5 h-3.5" />
+                            View Receipt
+                          </button>
+                          <div className={`text-[8px] font-black uppercase tracking-widest text-center px-2 py-0.5 rounded-full ${
+                            booking.paymentStatus === 'verified' ? 'text-emerald-400 bg-emerald-400/5' : 
+                            booking.paymentStatus === 'rejected' ? 'text-rose-400 bg-rose-400/5' : 
+                            'text-amber-400 bg-amber-400/5'
+                          }`}>
+                            {booking.paymentStatus || 'pending'}
+                          </div>
+                        </div>
+                      ) : (
+                        <span className="text-[10px] text-slate-600 font-bold uppercase tracking-widest italic">Offline Pay</span>
+                      )}
                     </td>
                     <td>
                       <span className={`px-3 py-1.5 rounded-xl text-[10px] font-black uppercase tracking-widest border ${statusColors[booking.status]}`}>
@@ -253,6 +290,50 @@ export default function BookingsPage() {
           SaaS Engine v1.0
         </p>
       </div>
+
+      {/* Receipt Modal */}
+      {selectedBooking && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm animate-in fade-in duration-300" onClick={() => setSelectedBooking(null)}>
+          <div className="relative max-w-2xl w-full bg-[#08090a] rounded-[40px] p-6 border border-white/10 animate-in zoom-in-95 duration-300 shadow-2xl" onClick={e => e.stopPropagation()}>
+            <div className="flex items-center justify-between mb-6">
+              <div>
+                <h3 className="text-xl font-black text-white tracking-tight">Payment Verification</h3>
+                <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest mt-1">Audit customer evidence</p>
+              </div>
+              <button 
+                onClick={() => setSelectedBooking(null)}
+                className="w-10 h-10 bg-white/5 hover:bg-white/10 rounded-full flex items-center justify-center text-slate-400 transition-all"
+              >
+                <HiXMark className="w-6 h-6" />
+              </button>
+            </div>
+
+            <div className="rounded-[32px] overflow-hidden bg-slate-900 min-h-[300px] flex items-center justify-center border border-white/5">
+              <img 
+                src={`${(process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5200').replace('/api', '')}${selectedBooking.paymentReceipt}`} 
+                alt="Payment Evidence" 
+                className="w-full h-auto max-h-[60vh] object-contain" 
+              />
+            </div>
+            
+            <div className="mt-8 flex gap-4">
+              <button 
+                onClick={() => updatePaymentStatus(selectedBooking._id, 'rejected')}
+                className="flex-1 py-4 bg-red-500/10 border border-red-500/20 text-red-400 rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-red-500 hover:text-white transition-all"
+              >
+                Reject Payment
+              </button>
+              <button 
+                onClick={() => updatePaymentStatus(selectedBooking._id, 'verified')}
+                className="flex-[2] py-4 bg-emerald-600 border border-emerald-500 text-white rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-emerald-500 transition-all shadow-xl shadow-emerald-600/20 flex items-center justify-center gap-2"
+              >
+                <HiCheckBadge className="w-4 h-4" />
+                Verify & Approve
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

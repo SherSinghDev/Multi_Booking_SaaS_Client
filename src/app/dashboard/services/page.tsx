@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import api from '@/lib/api';
 import toast from 'react-hot-toast';
-import { HiPlus, HiPencilSquare, HiTrash, HiXMark, HiCurrencyRupee, HiClock, HiTag } from 'react-icons/hi2';
+import { HiPlus, HiPencilSquare, HiTrash, HiXMark, HiCurrencyRupee, HiClock, HiTag, HiCreditCard, HiBanknotes } from 'react-icons/hi2';
 
 interface Service {
   _id: string;
@@ -13,6 +13,7 @@ interface Service {
   duration: number;
   description: string;
   isActive: boolean;
+  paymentMode: 'online' | 'offline';
 }
 
 export default function ServicesPage() {
@@ -22,7 +23,7 @@ export default function ServicesPage() {
   const [editing, setEditing] = useState<Service | null>(null);
   const [businessId, setBusinessId] = useState<string | null>(null);
   const [businessType, setBusinessType] = useState<string>('clinic');
-  const [form, setForm] = useState({ name: '', type: 'service', price: '', duration: '30', description: '' });
+  const [form, setForm] = useState({ name: '', type: 'service', price: '', duration: '30', description: '', paymentMode: 'offline' });
 
   useEffect(() => {
     const id = localStorage.getItem('bookify_active_business');
@@ -36,7 +37,7 @@ export default function ServicesPage() {
         if (biz) {
           setBusinessType(biz.businessType);
           const m: Record<string, string> = { clinic: 'service', salon: 'slot', hotel: 'room' };
-          setForm(p => ({ ...p, type: m[biz.businessType] || 'service' }));
+          setForm(p => ({ ...p, type: m[biz.businessType] || 'service', paymentMode: 'offline' }));
         }
       } catch {}
     };
@@ -58,7 +59,14 @@ export default function ServicesPage() {
     e.preventDefault();
     if (!form.name) { toast.error('Name required'); return; }
     try {
-      const payload = { name: form.name, type: form.type, price: Number(form.price) || 0, duration: Number(form.duration) || 30, description: form.description };
+      const payload = { 
+        name: form.name, 
+        type: form.type, 
+        price: Number(form.price) || 0, 
+        duration: Number(form.duration) || 30, 
+        description: form.description,
+        paymentMode: form.paymentMode
+      };
       if (editing) {
         await api.put(`/services/${editing._id}`, payload);
         toast.success('Service updated');
@@ -72,7 +80,14 @@ export default function ServicesPage() {
 
   const handleEdit = (s: Service) => {
     setEditing(s);
-    setForm({ name: s.name, type: s.type, price: String(s.price), duration: String(s.duration), description: s.description });
+    setForm({ 
+      name: s.name, 
+      type: s.type, 
+      price: String(s.price), 
+      duration: String(s.duration), 
+      description: s.description,
+      paymentMode: s.paymentMode || 'offline'
+    });
     setShowModal(true);
   };
 
@@ -84,7 +99,7 @@ export default function ServicesPage() {
 
   const resetForm = () => {
     const m: Record<string, string> = { clinic: 'service', salon: 'slot', hotel: 'room' };
-    setForm({ name: '', type: m[businessType] || 'service', price: '', duration: '30', description: '' });
+    setForm({ name: '', type: m[businessType] || 'service', price: '', duration: '30', description: '', paymentMode: 'offline' });
   };
 
   const typeConfig: Record<string, { label: string; icon: string; color: string }> = {
@@ -162,6 +177,12 @@ export default function ServicesPage() {
                   {typeConfig[s.type]?.label}
                 </div>
                 <div className="flex gap-2">
+                  <div className={`px-3 py-1.5 rounded-full text-[9px] font-black uppercase tracking-widest flex items-center gap-1.5 ${s.paymentMode === 'online' ? 'bg-amber-400/10 text-amber-400' : 'bg-slate-400/10 text-slate-400'}`}>
+                    {s.paymentMode === 'online' ? <HiCreditCard className="w-3 h-3" /> : <HiBanknotes className="w-3 h-3" />}
+                    {s.paymentMode}
+                  </div>
+                </div>
+                <div className="flex gap-2 ml-auto">
                   <button onClick={() => handleEdit(s)} className="w-10 h-10 bg-white/5 hover:bg-primary-600/20 rounded-xl flex items-center justify-center text-slate-400 hover:text-white transition-all border border-white/5">
                     <HiPencilSquare className="w-5 h-5" />
                   </button>
@@ -249,6 +270,28 @@ export default function ServicesPage() {
                 <div>
                   <label className="block text-xs font-black text-slate-500 uppercase tracking-widest mb-3 ml-1">Context / Description</label>
                   <textarea id="service-desc" value={form.description} onChange={e => setForm({ ...form, description: e.target.value })} placeholder="Briefly describe the module details..." rows={3} className="w-full input-premium py-4 rounded-2xl resize-none" />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-black text-slate-500 uppercase tracking-widest mb-3 ml-1">Settlement Method</label>
+                  <div className="grid grid-cols-2 gap-4">
+                    <button 
+                      type="button" 
+                      onClick={() => setForm({ ...form, paymentMode: 'offline' })}
+                      className={`flex items-center justify-center gap-2 py-4 rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all border ${form.paymentMode === 'offline' ? 'bg-white/10 border-white/20 text-white shadow-xl shadow-white/5' : 'bg-white/5 border-white/5 text-slate-500 hover:bg-white/10'}`}
+                    >
+                      <HiBanknotes className="w-4 h-4" />
+                      Offline / Pay at Counter
+                    </button>
+                    <button 
+                      type="button" 
+                      onClick={() => setForm({ ...form, paymentMode: 'online' })}
+                      className={`flex items-center justify-center gap-2 py-4 rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all border ${form.paymentMode === 'online' ? 'bg-amber-600 border-amber-500 text-white shadow-xl shadow-amber-600/20' : 'bg-white/5 border-white/5 text-slate-500 hover:bg-white/10'}`}
+                    >
+                      <HiCreditCard className="w-4 h-4" />
+                      Online / UPI Gateway
+                    </button>
+                  </div>
                 </div>
               </div>
 

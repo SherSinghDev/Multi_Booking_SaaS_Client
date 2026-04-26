@@ -15,6 +15,7 @@ interface Business {
   description: string;
   phone: string;
   address: string;
+  upiQrCode?: string;
   availability: { days: string[]; startTime: string; endTime: string; slotDuration: number };
 }
 
@@ -25,6 +26,7 @@ interface Service {
   price: number;
   duration: number;
   description: string;
+  paymentMode?: 'online' | 'offline';
 }
 
 interface SlotInfo {
@@ -47,6 +49,7 @@ export default function PublicBookingPage({ params }: { params: Promise<{ slug: 
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
   const [notFound, setNotFound] = useState(false);
+  const [receipt, setReceipt] = useState<File | null>(null);
 
   const [form, setForm] = useState({
     serviceId: '', date: '', timeSlot: '', customerName: '', customerPhone: '', customerEmail: '', notes: '',
@@ -88,11 +91,19 @@ export default function PublicBookingPage({ params }: { params: Promise<{ slug: 
     }
     setSubmitting(true);
     try {
-      await api.post('/bookings', {
-        businessId: business?._id, serviceId: form.serviceId,
-        date: form.date, timeSlot: form.timeSlot,
-        customerName: form.customerName, customerPhone: form.customerPhone,
-        customerEmail: form.customerEmail, notes: form.notes,
+      const formData = new FormData();
+      formData.append('businessId', business?._id || '');
+      formData.append('serviceId', form.serviceId);
+      formData.append('date', form.date);
+      formData.append('timeSlot', form.timeSlot);
+      formData.append('customerName', form.customerName);
+      formData.append('customerPhone', form.customerPhone);
+      formData.append('customerEmail', form.customerEmail);
+      formData.append('notes', form.notes);
+      if (receipt) formData.append('paymentReceipt', receipt);
+
+      await api.post('/bookings', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
       });
       setSuccess(true);
     } catch (err: any) { toast.error(err.response?.data?.message || 'Transaction failed. Please try again.'); }
@@ -331,6 +342,67 @@ export default function PublicBookingPage({ params }: { params: Promise<{ slug: 
               </div>
             </div>
           </div>
+
+          {/* Section 4: Payment Node (Conditional) */}
+          {services.find(s => s._id === form.serviceId)?.paymentMode === 'online' && (
+            <div className={`space-y-10 transition-all duration-500 ${form.customerPhone ? 'opacity-100' : 'opacity-30 pointer-events-none'}`}>
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 bg-amber-500 rounded-2xl flex items-center justify-center text-white shadow-lg">
+                  <HiCurrencyRupee className="w-6 h-6" />
+                </div>
+                <div>
+                  <h2 className="text-2xl font-black text-white tracking-tight">Settlement Required</h2>
+                  <p className="text-xs text-slate-500 font-bold uppercase tracking-widest mt-1">Direct to Business Payment</p>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+                <div className="bg-white p-6 rounded-[40px] shadow-2xl max-w-[280px] mx-auto md:mx-0">
+                  {business?.upiQrCode ? (
+                    <img 
+                      src={`${(process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5200').replace('/api', '')}${business.upiQrCode}`} 
+                      alt="Merchant QR" 
+                      className="w-full h-auto rounded-2xl"
+                    />
+                  ) : (
+                    <div className="w-full aspect-square bg-slate-100 rounded-2xl flex flex-col items-center justify-center text-slate-400 gap-2">
+                      <HiTag className="w-10 h-10" />
+                      <p className="text-[10px] font-black uppercase tracking-widest">Awaiting Merchant QR</p>
+                    </div>
+                  )}
+                  <div className="mt-4 text-center">
+                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Scan & Pay Now</p>
+                    <p className="text-xl font-black text-slate-900">₹{services.find(s => s._id === form.serviceId)?.price}</p>
+                  </div>
+                </div>
+
+                <div className="space-y-6">
+                  <p className="text-sm text-slate-400 font-medium leading-relaxed italic">
+                    This service requires upfront settlement. Please scan the QR code and pay the exact amount. Upload your payment screenshot below to confirm your slot.
+                  </p>
+                  <div className="relative group">
+                    <label className="block text-[10px] font-black text-slate-500 uppercase tracking-widest mb-3 ml-1">Payment Receipt (Screenshot)</label>
+                    <div className={`border-2 border-dashed rounded-2xl p-6 transition-all ${receipt ? 'border-emerald-500 bg-emerald-500/5' : 'border-white/10 hover:border-white/20'}`}>
+                      <input 
+                        type="file" 
+                        accept="image/*"
+                        onChange={e => setReceipt(e.target.files?.[0] || null)}
+                        className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                      />
+                      <div className="flex items-center gap-4">
+                        <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${receipt ? 'bg-emerald-500 text-white' : 'bg-white/5 text-slate-500'}`}>
+                          <HiRocketLaunch className="w-5 h-5" />
+                        </div>
+                        <p className="text-xs font-bold text-white truncate max-w-[150px]">
+                          {receipt ? receipt.name : 'Upload Screenshot'}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
 
           {/* Checkout CTA */}
           <div className="pt-10 border-t border-white/5">

@@ -19,7 +19,8 @@ import {
   HiShieldCheck,
   HiBuildingOffice2,
   HiRocketLaunch,
-  HiClock
+  HiClock,
+  HiCreditCard
 } from 'react-icons/hi2';
 import api from '@/lib/api';
 
@@ -90,6 +91,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     { href: '/dashboard/my-businesses', icon: HiBuildingOffice2, label: 'My Businesses' },
     { href: '/dashboard/bookings', icon: HiCalendarDays, label: 'Bookings' },
     { href: '/dashboard/services', icon: HiSquares2X2, label: 'Services' },
+    { href: '/dashboard/payment-settings', icon: HiCreditCard, label: 'Payment Config' },
     { href: '/dashboard/settings', icon: HiCog6Tooth, label: 'Settings' },
   ];
 
