@@ -169,7 +169,7 @@ export default function CreateBusinessPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center relative z-10">
             <div className="space-y-6">
               <div className="bg-white p-4 rounded-3xl shadow-2xl max-w-[240px] mx-auto md:mx-0">
-                <img src="/saas/upi-qr.png" alt="UPI QR Code" className="w-full rounded-2xl" />
+                <img src="/upi-qr.png" alt="UPI QR Code" className="w-full rounded-2xl" />
                 <div className="mt-4 text-center">
                   <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Scan to Pay</p>
                   <p className="text-lg font-black text-slate-900">₹499.00 / month</p>

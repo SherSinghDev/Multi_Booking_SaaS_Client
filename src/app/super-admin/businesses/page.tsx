@@ -154,7 +154,7 @@ export default function SuperAdminBusinesses() {
                   <td>
                     {biz.paymentReceipt ? (
                       <button 
-                        onClick={() => setSelectedReceipt(`${(process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5200').replace('/api', '')}${biz.paymentReceipt}`)}
+                        onClick={() => setSelectedReceipt(`${(process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000').replace('/api', '')}${biz.paymentReceipt}`)}
                         className="text-indigo-400 hover:text-indigo-300 text-[10px] font-black uppercase tracking-widest underline decoration-2 underline-offset-4"
                       >
                         View Receipt
