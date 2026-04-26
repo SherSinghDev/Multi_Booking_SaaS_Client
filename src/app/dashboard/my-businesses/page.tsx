@@ -166,7 +166,7 @@ export default function MyBusinessesPage() {
                 <button 
                   onClick={() => {
                     localStorage.setItem('bookify_active_business', biz._id);
-                    window.location.href = '/dashboard';
+                    window.location.href = '/saas/dashboard';
                   }}
                   className="mt-8 w-full py-4 bg-white/5 hover:bg-primary-600 text-white rounded-2xl text-[10px] font-black uppercase tracking-[2px] border border-white/10 hover:border-primary-500 transition-all duration-300"
                 >
