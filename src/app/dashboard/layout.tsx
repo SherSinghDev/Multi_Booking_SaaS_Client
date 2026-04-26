@@ -41,7 +41,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
   useEffect(() => {
     if (!authLoading && !user) {
-      router.push('/saas/login');
+      router.push('/login');
     }
   }, [user, authLoading, router]);
 
@@ -74,7 +74,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
   const handleLogout = () => {
     logout();
-    router.push('/saas/');
+    router.push('/');
   };
 
   if (authLoading || !user) {
@@ -86,11 +86,11 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   }
 
   const navItems = [
-    { href: '/saas/dashboard', icon: HiHome, label: 'Overview' },
-    { href: '/saas/dashboard/my-businesses', icon: HiBuildingOffice2, label: 'My Businesses' },
-    { href: '/saas/dashboard/bookings', icon: HiCalendarDays, label: 'Bookings' },
-    { href: '/saas/dashboard/services', icon: HiSquares2X2, label: 'Services' },
-    { href: '/saas/dashboard/settings', icon: HiCog6Tooth, label: 'Settings' },
+    { href: '/dashboard', icon: HiHome, label: 'Overview' },
+    { href: '/dashboard/my-businesses', icon: HiBuildingOffice2, label: 'My Businesses' },
+    { href: '/dashboard/bookings', icon: HiCalendarDays, label: 'Bookings' },
+    { href: '/dashboard/services', icon: HiSquares2X2, label: 'Services' },
+    { href: '/dashboard/settings', icon: HiCog6Tooth, label: 'Settings' },
   ];
 
   const businessTypeEmoji: Record<string, string> = {
@@ -168,7 +168,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             </div>
           ) : (
             <Link
-              href="/saas/dashboard/create-business"
+              href="/dashboard/create-business"
               className="flex items-center gap-3 p-4 bg-primary-600 text-white rounded-2xl font-bold text-sm shadow-lg shadow-primary-600/20 hover:bg-primary-500 transition-all active:scale-95"
             >
               <HiPlus className="w-5 h-5" />
@@ -182,7 +182,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           <p className="text-[10px] font-bold text-slate-500 uppercase tracking-[2px] mb-4 ml-3">Management</p>
           {navItems.map((item) => {
             const isActive = pathname === item.href;
-            const isBlocked = (activeBusiness?.status === 'pending' || activeBusiness?.status === 'expired' || activeBusiness?.status === 'pending_renewal') && !['/saas/dashboard', '/saas/dashboard/my-businesses'].includes(item.href);
+            const isBlocked = (activeBusiness?.status === 'pending' || activeBusiness?.status === 'expired' || activeBusiness?.status === 'pending_renewal') && !['/dashboard', '/dashboard/my-businesses'].includes(item.href);
             return (
               <Link
                 key={item.href}
@@ -206,7 +206,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             <p className="text-[10px] font-bold text-slate-500 uppercase tracking-[2px] mb-4 ml-3">External</p>
             {activeBusiness && activeBusiness.status === 'approved' && (
               <Link
-                href={`/saas/business/${activeBusiness.slug}`}
+                href={`/business/${activeBusiness.slug}`}
                 target="_blank"
                 className="flex items-center gap-4 px-4 py-3.5 rounded-2xl text-sm font-bold text-emerald-400 hover:bg-emerald-400/10 transition-all group"
               >
@@ -215,7 +215,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
               </Link>
             )}
             <Link
-              href="/saas/dashboard/create-business"
+              href="/dashboard/create-business"
               onClick={() => setSidebarOpen(false)}
               className="flex items-center gap-4 px-4 py-3.5 rounded-2xl text-sm font-bold text-slate-400 hover:text-white hover:bg-white/5 transition-all group"
             >
@@ -227,7 +227,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
               <div className="pt-8 space-y-1.5">
                 <p className="text-[10px] font-bold text-indigo-400 uppercase tracking-[2px] mb-4 ml-3">System Root</p>
                 <Link
-                  href="/saas/super-admin"
+                  href="/super-admin"
                   className="flex items-center gap-4 px-4 py-3.5 rounded-2xl text-sm font-bold text-indigo-400 hover:bg-indigo-400/10 transition-all group"
                 >
                   <HiShieldCheck className="w-5 h-5" />
@@ -290,7 +290,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         </header>
 
         <div className="flex-1 p-4 sm:p-6 md:p-10 max-w-[1600px] mx-auto w-full relative z-10">
-          {pathname === '/saas/dashboard/renew' || pathname === '/saas/dashboard/my-businesses' ? (
+          {pathname === '/dashboard/renew' || pathname === '/dashboard/my-businesses' ? (
             children
           ) : activeBusiness?.status === 'pending' ? (
             <div className="h-full min-h-[60vh] flex flex-col items-center justify-center text-center space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-1000">
@@ -331,7 +331,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                   Your subscription for <span className="text-white font-bold">"{activeBusiness.businessName}"</span> has ended. Please renew to restore platform operations.
                 </p>
                 <Link 
-                  href="/saas/dashboard/renew"
+                  href="/dashboard/renew"
                   className="btn-primary inline-flex items-center gap-3 py-4 px-10 text-lg font-black tracking-widest uppercase mt-6"
                 >
                   Renew Now

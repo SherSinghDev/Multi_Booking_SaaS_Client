@@ -114,7 +114,7 @@ export default function ServicesPage() {
               Service modules require an active platform to be deployed. Launch your business first to start configuring services.
             </p>
             <a 
-              href="/saas/dashboard/create-business" 
+              href="/dashboard/create-business" 
               className="btn-primary inline-flex items-center gap-3 px-10 py-4 text-sm font-black uppercase tracking-widest"
             >
               Launch My Platform

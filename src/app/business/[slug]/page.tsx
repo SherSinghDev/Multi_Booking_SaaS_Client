@@ -113,7 +113,7 @@ export default function PublicBookingPage({ params }: { params: Promise<{ slug: 
         <div className="text-8xl mb-8 grayscale opacity-40">🏢</div>
         <h1 className="text-4xl font-black text-white tracking-tight mb-4">Portal Offline</h1>
         <p className="text-slate-400 mb-10 max-w-sm mx-auto font-medium">This business portal is not active or the URL is incorrect.</p>
-        <Link href="/saas/" className="btn-primary inline-flex items-center gap-2">Go Home <HiArrowRight /></Link>
+        <Link href="/" className="btn-primary inline-flex items-center gap-2">Go Home <HiArrowRight /></Link>
       </div>
     </div>
   );
@@ -130,7 +130,7 @@ export default function PublicBookingPage({ params }: { params: Promise<{ slug: 
           <br /><br />
           Please check back later once the subscription has been verified.
         </p>
-        <Link href="/saas/" className="btn-primary w-full py-5 rounded-2xl text-lg font-black tracking-widest uppercase flex items-center justify-center gap-3">
+        <Link href="/" className="btn-primary w-full py-5 rounded-2xl text-lg font-black tracking-widest uppercase flex items-center justify-center gap-3">
           Return to Hub <HiArrowRight />
         </Link>
       </div>
@@ -354,7 +354,7 @@ export default function PublicBookingPage({ params }: { params: Promise<{ slug: 
 
         {/* Footer Brand */}
         <div className="text-center py-16">
-          <Link href="/saas/" className="inline-flex items-center gap-2 group">
+          <Link href="/" className="inline-flex items-center gap-2 group">
             <span className="text-[10px] font-black text-slate-500 uppercase tracking-[4px] group-hover:text-primary-400 transition-colors">Powered by Bookify Platform</span>
           </Link>
         </div>

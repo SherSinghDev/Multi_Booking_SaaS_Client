@@ -98,7 +98,7 @@ export default function BookingsPage() {
               Bookings are tied to specific business platforms. You need to launch a business before you can manage reservations.
             </p>
             <a 
-              href="/saas/dashboard/create-business" 
+              href="/dashboard/create-business" 
               className="btn-primary inline-flex items-center gap-3 px-10 py-4 text-sm font-black uppercase tracking-widest"
             >
               Launch My Platform

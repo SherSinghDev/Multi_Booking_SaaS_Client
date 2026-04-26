@@ -30,7 +30,7 @@ export default function SignupPage() {
     try {
       await signup(name, email, password);
       toast.success('Account created! Welcome!');
-      router.push('/saas/dashboard');
+      router.push('/dashboard');
     } catch (err: any) {
       toast.error(err.response?.data?.message || 'Signup failed');
     } finally {
@@ -46,7 +46,7 @@ export default function SignupPage() {
 
       <div className="w-full max-w-[460px] relative z-10 py-12">
         <div className="text-center mb-10">
-          <Link href="/saas/" className="inline-flex items-center gap-3 mb-6 group">
+          <Link href="/" className="inline-flex items-center gap-3 mb-6 group">
             <div className="w-10 h-10 bg-primary-600 rounded-xl flex items-center justify-center shadow-lg shadow-primary-600/30 group-hover:scale-110 transition-transform">
               <HiCalendar className="text-white text-xl" />
             </div>
@@ -129,7 +129,7 @@ export default function SignupPage() {
           <div className="mt-8 text-center pt-8 border-t border-white/5">
             <p className="text-slate-400 font-medium">
               Already have an account?{' '}
-              <Link href="/saas/login" className="text-primary-400 hover:text-primary-300 font-bold underline decoration-primary-500/30 underline-offset-4 transition-all">
+              <Link href="/login" className="text-primary-400 hover:text-primary-300 font-bold underline decoration-primary-500/30 underline-offset-4 transition-all">
                 Sign in instead
               </Link>
             </p>

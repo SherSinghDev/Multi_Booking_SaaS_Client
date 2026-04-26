@@ -39,7 +39,7 @@ export default function HomePage() {
         style={{ backgroundColor: mobileMenuOpen ? '#0b0821' : 'rgba(11, 8, 33, 0.5)' }}
       >
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-          <Link href="/saas/" className="flex items-center gap-2 group">
+          <Link href="/" className="flex items-center gap-2 group">
             <div className="w-10 h-10 bg-primary-600 rounded-xl flex items-center justify-center shadow-lg shadow-primary-600/20 group-hover:scale-110 transition-transform duration-300">
               <HiCalendar className="text-white text-xl" />
             </div>
@@ -57,15 +57,15 @@ export default function HomePage() {
           <div className="flex items-center gap-5">
             <div className="hidden sm:flex items-center gap-5">
               {user ? (
-                <Link href="/saas/dashboard" className="btn-primary py-2.5 px-6 text-sm font-black tracking-widest uppercase">
+                <Link href="/dashboard" className="btn-primary py-2.5 px-6 text-sm font-black tracking-widest uppercase">
                   Dashboard
                 </Link>
               ) : (
                 <>
-                  <Link href="/saas/login" className="text-sm font-black text-slate-300 hover:text-white uppercase tracking-widest">
+                  <Link href="/login" className="text-sm font-black text-slate-300 hover:text-white uppercase tracking-widest">
                     Login
                   </Link>
-                  <Link href="/saas/signup" className="btn-primary py-2.5 px-6 text-sm font-black tracking-widest uppercase">
+                  <Link href="/signup" className="btn-primary py-2.5 px-6 text-sm font-black tracking-widest uppercase">
                     Get Started
                   </Link>
                 </>
@@ -88,7 +88,7 @@ export default function HomePage() {
           >
             {/* Menu Header */}
             <div className="flex items-center justify-between mb-12">
-              <Link href="/saas/" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-2">
+              <Link href="/" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-2">
                 <div className="w-10 h-10 bg-primary-600 rounded-xl flex items-center justify-center shadow-lg shadow-primary-600/20">
                   <HiCalendar className="text-white text-xl" />
                 </div>
@@ -122,14 +122,14 @@ export default function HomePage() {
             <div className="mt-12 pb-12 space-y-4">
               <div className="h-px bg-white/5 mb-8" />
               {user ? (
-                <Link href="/saas/dashboard" onClick={() => setMobileMenuOpen(false)} className="btn-primary py-5 text-center font-black uppercase tracking-widest text-sm flex items-center justify-center gap-3">
+                <Link href="/dashboard" onClick={() => setMobileMenuOpen(false)} className="btn-primary py-5 text-center font-black uppercase tracking-widest text-sm flex items-center justify-center gap-3">
                   Go to Dashboard
                   <HiArrowRight className="w-5 h-5" />
                 </Link>
               ) : (
                 <div className="flex flex-col gap-4">
-                  <Link href="/saas/signup" onClick={() => setMobileMenuOpen(false)} className="btn-primary py-5 text-center font-black uppercase tracking-widest text-sm">Join Bookify Now</Link>
-                  <Link href="/saas/login" onClick={() => setMobileMenuOpen(false)} className="btn-secondary py-5 text-center font-black uppercase tracking-widest text-sm text-slate-300">Login to Account</Link>
+                  <Link href="/signup" onClick={() => setMobileMenuOpen(false)} className="btn-primary py-5 text-center font-black uppercase tracking-widest text-sm">Join Bookify Now</Link>
+                  <Link href="/login" onClick={() => setMobileMenuOpen(false)} className="btn-secondary py-5 text-center font-black uppercase tracking-widest text-sm text-slate-300">Login to Account</Link>
                 </div>
               )}
             </div>
@@ -156,7 +156,7 @@ export default function HomePage() {
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-32">
-            <Link href="/saas/signup" className="btn-primary text-xl px-12 py-5 flex items-center gap-3 group shadow-2xl shadow-primary-600/40">
+            <Link href="/signup" className="btn-primary text-xl px-12 py-5 flex items-center gap-3 group shadow-2xl shadow-primary-600/40">
               Start Building Free
               <HiArrowRight className="group-hover:translate-x-2 transition-transform" />
             </Link>
@@ -265,7 +265,7 @@ export default function HomePage() {
                     </li>
                   ))}
                 </ul>
-                <Link href="/saas/signup" className={`w-full py-4 px-6 rounded-2xl border text-[10px] font-black uppercase tracking-widest text-center hover:bg-white/5 transition-all ${sol.btn}`}>
+                <Link href="/signup" className={`w-full py-4 px-6 rounded-2xl border text-[10px] font-black uppercase tracking-widest text-center hover:bg-white/5 transition-all ${sol.btn}`}>
                   Deploy Solution
                 </Link>
               </div>
@@ -346,8 +346,8 @@ export default function HomePage() {
               <h2 className="text-3xl md:text-4xl font-black text-white tracking-tighter mb-5">Ready to dominate <br /> <span className="text-gradient">your market?</span></h2>
               <p className="text-base text-slate-300 mb-8 max-w-md mx-auto font-medium">Join 5,000+ businesses running their entire booking economy on Bookify.</p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-                <Link href="/saas/signup" className="btn-primary text-xl px-12 py-5 w-full sm:w-auto">Get Started Now</Link>
-                <Link href="/saas/login" className="btn-secondary text-xl px-12 py-5 w-full sm:w-auto">Book a Demo</Link>
+                <Link href="/signup" className="btn-primary text-xl px-12 py-5 w-full sm:w-auto">Get Started Now</Link>
+                <Link href="/login" className="btn-secondary text-xl px-12 py-5 w-full sm:w-auto">Book a Demo</Link>
               </div>
             </div>
           </div>
@@ -359,7 +359,7 @@ export default function HomePage() {
         <div className="container-center">
           <div className="flex flex-col md:flex-row justify-between items-center gap-12">
             <div className="space-y-6 text-center md:text-left">
-              <Link href="/saas/" className="flex items-center justify-center md:justify-start gap-2 group">
+              <Link href="/" className="flex items-center justify-center md:justify-start gap-2 group">
                 <div className="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center">
                   <HiCalendar className="text-white text-sm" />
                 </div>
