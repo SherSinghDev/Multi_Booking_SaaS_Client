@@ -226,8 +226,8 @@ export default function ServicesPage() {
 
       {/* Modern Modal Component */}
       {showModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-6 bg-black/80 backdrop-blur-sm animate-in fade-in duration-300">
-          <div className="glass-morphism rounded-[40px] w-full max-w-xl overflow-hidden border border-white/10 shadow-2xl animate-in zoom-in-95 duration-300">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/80 backdrop-blur-sm animate-in fade-in duration-300 overflow-y-auto">
+          <div className="glass-morphism rounded-[40px] w-full max-w-xl overflow-y-auto max-h-[90vh] border border-white/10 shadow-2xl animate-in zoom-in-95 duration-300 custom-scrollbar">
             <div className="px-6 sm:px-10 py-6 sm:py-8 border-b border-white/5 flex items-center justify-between bg-white/[0.02]">
               <div>
                 <h2 className="text-xl sm:text-2xl font-black text-white tracking-tight">{editing ? 'Configure Module' : 'Deploy New Module'}</h2>
