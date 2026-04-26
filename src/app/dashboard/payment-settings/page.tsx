@@ -46,7 +46,9 @@ export default function PaymentSettings() {
       const formData = new FormData();
       formData.append('upiQrCode', file);
 
-      const res = await api.put(`/business/${businessId}/upi-qr`, formData);
+      const res = await api.put(`/business/${businessId}/upi-qr`, formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
 
       setUpiQrCode(res.data.business.upiQrCode);
       setFile(null);
