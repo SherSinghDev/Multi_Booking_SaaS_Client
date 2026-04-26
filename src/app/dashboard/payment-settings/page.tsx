@@ -106,19 +106,17 @@ export default function PaymentSettings() {
           <form onSubmit={handleUpload} className="space-y-8">
             <div className="relative">
               <label className="block text-xs font-black text-slate-500 uppercase tracking-widest mb-4 ml-1">Deploy New QR Image</label>
-              <div className={`relative group border-2 border-dashed rounded-[32px] transition-all duration-500 ${
-                file ? 'border-primary-500 bg-primary-500/5' : 'border-white/10 hover:border-white/20'
-              }`}>
-                <input 
-                  type="file" 
+              <div className={`relative group border-2 border-dashed rounded-[32px] transition-all duration-500 ${file ? 'border-primary-500 bg-primary-500/5' : 'border-white/10 hover:border-white/20'
+                }`}>
+                <input
+                  type="file"
                   accept="image/*"
                   onChange={(e) => setFile(e.target.files?.[0] || null)}
                   className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
                 />
                 <div className="p-12 text-center space-y-4">
-                  <div className={`w-16 h-16 rounded-2xl mx-auto flex items-center justify-center transition-transform duration-500 group-hover:scale-110 ${
-                    file ? 'bg-primary-600 text-white' : 'bg-white/5 text-slate-500'
-                  }`}>
+                  <div className={`w-16 h-16 rounded-2xl mx-auto flex items-center justify-center transition-transform duration-500 group-hover:scale-110 ${file ? 'bg-primary-600 text-white' : 'bg-white/5 text-slate-500'
+                    }`}>
                     <HiCloudArrowUp className="w-8 h-8" />
                   </div>
                   <div>
@@ -146,14 +144,14 @@ export default function PaymentSettings() {
         {/* Preview Section */}
         <div className="glass-morphism rounded-[40px] p-10 border border-white/5 flex flex-col items-center justify-center text-center space-y-8 min-h-[400px] relative overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-b from-primary-600/[0.03] to-transparent" />
-          
+
           <div className="relative z-10 w-full">
             {upiQrCode ? (
               <div className="space-y-8 animate-in fade-in zoom-in-95 duration-700">
                 <div className="bg-white p-6 rounded-[32px] shadow-2xl inline-block relative group">
-                  <img 
-                    src={`${(process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5200').replace('/api', '')}${upiQrCode}`} 
-                    alt="Current UPI QR" 
+                  <img
+                    src={`${(process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5200').replace('/api', '')}${upiQrCode}`}
+                    alt="Current UPI QR"
                     className="w-48 h-48 rounded-xl object-contain"
                   />
                   <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity rounded-[32px] flex items-center justify-center">
