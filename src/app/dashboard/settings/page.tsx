@@ -79,7 +79,7 @@ export default function SettingsPage() {
               System parameters are tied to your platform identity. Launch your business to start configuring operational windows and global logic.
             </p>
             <a
-              href="/dashboard/create-business"
+              href="/saas/dashboard/create-business"
               className="btn-primary inline-flex items-center gap-3 px-10 py-4 text-sm font-black uppercase tracking-widest"
             >
               Launch My Platform

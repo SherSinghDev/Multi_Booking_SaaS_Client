@@ -29,8 +29,8 @@ api.interceptors.response.use(
         localStorage.removeItem('bookify_token');
         localStorage.removeItem('bookify_user');
         // Only redirect if we're on a protected page
-        if (window.location.pathname.startsWith('/dashboard')) {
-          window.location.href = '/login';
+        if (window.location.pathname.startsWith('/saas/dashboard')) {
+          window.location.href = '/saas/login';
         }
       }
     }

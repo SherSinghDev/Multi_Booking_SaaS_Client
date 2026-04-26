@@ -25,13 +25,13 @@ export default function SuperAdminLayout({ children }: { children: React.ReactNo
 
   useEffect(() => {
     if (!authLoading && (!user || user.role !== 'super-admin')) {
-      router.push('/dashboard'); // Kick out if not super-admin
+      router.push('/saas/dashboard'); // Kick out if not super-admin
     }
   }, [user, authLoading, router]);
 
   const handleLogout = () => {
     logout();
-    router.push('/');
+    router.push('/saas/');
   };
 
   if (authLoading || !user || user.role !== 'super-admin') {
@@ -43,10 +43,10 @@ export default function SuperAdminLayout({ children }: { children: React.ReactNo
   }
 
   const navItems = [
-    { href: '/super-admin', icon: HiHome, label: 'Control Center' },
-    { href: '/super-admin/users', icon: HiUsers, label: 'Platform Admins' },
-    { href: '/super-admin/businesses', icon: HiBuildingOffice2, label: 'Business Nodes' },
-    { href: '/super-admin/renewals', icon: HiClock, label: 'Renewal Queue' },
+    { href: '/saas/super-admin', icon: HiHome, label: 'Control Center' },
+    { href: '/saas/super-admin/users', icon: HiUsers, label: 'Platform Admins' },
+    { href: '/saas/super-admin/businesses', icon: HiBuildingOffice2, label: 'Business Nodes' },
+    { href: '/saas/super-admin/renewals', icon: HiClock, label: 'Renewal Queue' },
   ];
 
   return (
@@ -67,7 +67,7 @@ export default function SuperAdminLayout({ children }: { children: React.ReactNo
       >
         {/* Logo Section */}
         <div className="h-16 flex items-center px-6 border-b border-white/5 bg-indigo-600/5">
-          <Link href="/" className="flex items-center gap-3 group">
+          <Link href="/saas/" className="flex items-center gap-3 group">
             <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform shadow-lg shadow-indigo-600/20">
               <HiShieldCheck className="text-white text-lg" />
             </div>

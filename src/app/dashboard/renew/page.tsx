@@ -70,7 +70,7 @@ export default function RenewBusinessPage() {
       });
       
       toast.success('Renewal request submitted!');
-      window.location.href = '/dashboard';
+      window.location.href = '/saas/dashboard';
     } catch (err: any) { 
       toast.error(err.response?.data?.message || 'Failed to submit renewal'); 
     } finally { 

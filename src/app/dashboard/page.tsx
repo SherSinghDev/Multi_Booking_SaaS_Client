@@ -80,7 +80,7 @@ export default function DashboardOverview() {
               Create your first business to start tracking analytics and managing bookings.
             </p>
             <Link 
-              href="/dashboard/create-business" 
+              href="/saas/dashboard/create-business" 
               className="btn-primary inline-flex items-center gap-3 px-10 py-4 text-sm font-black uppercase tracking-widest"
             >
               Launch My Platform
@@ -142,7 +142,7 @@ export default function DashboardOverview() {
           <p className="text-xs text-slate-400 font-medium">Real-time performance metrics for your platform.</p>
         </div>
         <Link 
-          href="/dashboard/bookings" 
+          href="/saas/dashboard/bookings" 
           className="btn-primary text-sm font-bold flex items-center gap-3 group"
         >
           View All Bookings
@@ -177,7 +177,7 @@ export default function DashboardOverview() {
             <p className="text-[9px] text-slate-500 font-bold uppercase tracking-widest mt-1">Live Feed</p>
           </div>
           <Link
-            href="/dashboard/bookings"
+            href="/saas/dashboard/bookings"
             className="text-xs font-black text-primary-400 hover:text-primary-300 uppercase tracking-widest transition-colors"
           >
             View History →

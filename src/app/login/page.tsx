@@ -25,7 +25,7 @@ export default function LoginPage() {
     try {
       await login(email, password);
       toast.success('Welcome back!');
-      router.push('/dashboard');
+      router.push('/saas/dashboard');
     } catch (err: any) {
       toast.error(err.response?.data?.message || 'Login failed');
     } finally {
@@ -41,7 +41,7 @@ export default function LoginPage() {
 
       <div className="w-full max-w-[440px] relative z-10">
         <div className="text-center mb-10">
-          <Link href="/" className="inline-flex items-center gap-3 mb-6 group">
+          <Link href="/saas/" className="inline-flex items-center gap-3 mb-6 group">
             <div className="w-10 h-10 bg-primary-600 rounded-xl flex items-center justify-center shadow-lg shadow-primary-600/30 group-hover:scale-110 transition-transform">
               <HiCalendar className="text-white text-xl" />
             </div>
@@ -108,7 +108,7 @@ export default function LoginPage() {
           <div className="mt-8 text-center pt-8 border-t border-white/5">
             <p className="text-slate-400 font-medium">
               New to Bookify?{' '}
-              <Link href="/signup" className="text-primary-400 hover:text-primary-300 font-bold underline decoration-primary-500/30 underline-offset-4 transition-all">
+              <Link href="/saas/signup" className="text-primary-400 hover:text-primary-300 font-bold underline decoration-primary-500/30 underline-offset-4 transition-all">
                 Create an account
               </Link>
             </p>

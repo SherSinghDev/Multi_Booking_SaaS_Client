@@ -142,7 +142,7 @@ export default function MyBusinessesPage() {
                 <div>
                   <p className="text-[9px] font-black text-slate-600 uppercase tracking-widest mb-1">Public Endpoint</p>
                   <a 
-                    href={`/business/${biz.slug}`} 
+                    href={`/saas/business/${biz.slug}`} 
                     target="_blank"
                     className="flex items-center gap-2 text-white hover:text-primary-400 text-[11px] font-bold transition-colors"
                   >
@@ -166,7 +166,7 @@ export default function MyBusinessesPage() {
                 <button 
                   onClick={() => {
                     localStorage.setItem('bookify_active_business', biz._id);
-                    window.location.href = '/dashboard';
+                    window.location.href = '/saas/dashboard';
                   }}
                   className="mt-8 w-full py-4 bg-white/5 hover:bg-primary-600 text-white rounded-2xl text-[10px] font-black uppercase tracking-[2px] border border-white/10 hover:border-primary-500 transition-all duration-300"
                 >
@@ -187,7 +187,7 @@ export default function MyBusinessesPage() {
               <p className="text-slate-500 text-xs font-medium max-w-xs mx-auto">You haven't registered any businesses yet. Start by launching your first operational platform.</p>
             </div>
             <Link 
-              href="/dashboard/create-business"
+              href="/saas/dashboard/create-business"
               className="mt-4 text-primary-400 hover:text-primary-300 text-xs font-black uppercase tracking-widest underline decoration-2 underline-offset-4 transition-all"
             >
               Initialize Node Registration
