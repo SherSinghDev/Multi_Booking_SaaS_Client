@@ -172,22 +172,22 @@ export default function ServicesPage() {
               {/* Subtle background glow */}
               <div className="absolute -top-10 -right-10 w-32 h-32 bg-primary-600/5 rounded-full blur-3xl group-hover:bg-primary-600/20 transition-all duration-500" />
               
-              <div className="flex items-start justify-between mb-8 relative z-10">
-                <div className={`px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest ${typeConfig[s.type]?.color}`}>
-                  {typeConfig[s.type]?.label}
-                </div>
-                <div className="flex gap-2">
+              <div className="flex items-start justify-between mb-8 relative z-10 gap-4">
+                <div className="flex flex-wrap gap-2">
+                  <div className={`px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest ${typeConfig[s.type]?.color}`}>
+                    {typeConfig[s.type]?.label}
+                  </div>
                   <div className={`px-3 py-1.5 rounded-full text-[9px] font-black uppercase tracking-widest flex items-center gap-1.5 ${s.paymentMode === 'online' ? 'bg-amber-400/10 text-amber-400' : 'bg-slate-400/10 text-slate-400'}`}>
                     {s.paymentMode === 'online' ? <HiCreditCard className="w-3 h-3" /> : <HiBanknotes className="w-3 h-3" />}
                     {s.paymentMode}
                   </div>
                 </div>
-                <div className="flex gap-2 ml-auto">
-                  <button onClick={() => handleEdit(s)} className="w-10 h-10 bg-white/5 hover:bg-primary-600/20 rounded-xl flex items-center justify-center text-slate-400 hover:text-white transition-all border border-white/5">
-                    <HiPencilSquare className="w-5 h-5" />
+                <div className="flex gap-2 shrink-0">
+                  <button onClick={() => handleEdit(s)} className="w-9 h-9 bg-white/5 hover:bg-primary-600/20 rounded-xl flex items-center justify-center text-slate-400 hover:text-white transition-all border border-white/5">
+                    <HiPencilSquare className="w-4.5 h-4.5" />
                   </button>
-                  <button onClick={() => handleDelete(s._id)} className="w-10 h-10 bg-white/5 hover:bg-red-500/20 rounded-xl flex items-center justify-center text-slate-400 hover:text-red-400 transition-all border border-white/5">
-                    <HiTrash className="w-5 h-5" />
+                  <button onClick={() => handleDelete(s._id)} className="w-9 h-9 bg-white/5 hover:bg-red-500/20 rounded-xl flex items-center justify-center text-slate-400 hover:text-red-400 transition-all border border-white/5">
+                    <HiTrash className="w-4.5 h-4.5" />
                   </button>
                 </div>
               </div>
